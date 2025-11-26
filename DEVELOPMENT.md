@@ -48,7 +48,7 @@ gh release create v${VERSION} \
 
 Make changes to the release notes, and publish
 ```
-gh release edit v${VERSION} --draft false
+gh release edit v${VERSION} --draft=false
 ```
 
 This will automatically trigger Test PyPI publishing
