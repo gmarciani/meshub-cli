@@ -27,11 +27,6 @@ def config() -> None:
 @click.argument("value")
 def set(key: str, value: str) -> None:
     """Set a configuration value."""
-    default_config = load_default_config()
-    if key not in default_config:
-        logger.error(f"Unknown configuration key '{key}'")
-        return
-
     cfg = load_config()
     old_value = cfg.get(key)
     cfg[key] = value
@@ -51,6 +46,23 @@ def get(key: str) -> None:
         return
 
     result = {"key": key, "value": cfg[key]}
+    print(json.dumps(result, indent=2))
+
+
+@config.command()
+@click.argument("key")
+def unset(key: str) -> None:
+    """Unset a configuration value (set to None)."""
+    cfg = load_config()
+    if key not in cfg:
+        logger.error(f"Unknown configuration key '{key}'")
+        return
+
+    old_value = cfg.get(key)
+    cfg[key] = None
+    save_config(cfg)
+
+    result = {"key": key, "value": None, "oldValue": old_value}
     print(json.dumps(result, indent=2))
 
 
