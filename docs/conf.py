@@ -38,6 +38,7 @@ html_theme_options = {
 
 html_favicon = "_static/favicon.ico"
 html_logo = "_static/logo.png"
+html_extra_path = ["_static/CNAME"]
 
 # -- sphinx-click configuration ----------------------------------------------
 # This automatically documents Click commands
