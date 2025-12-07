@@ -49,7 +49,7 @@ labels:
     color: FFFFFF
 
 repos:
-  - name: gmarciani/yawa
+  - name: gmarciani/meshub
     labels:
       - Backlog
       - Bug
