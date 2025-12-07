@@ -23,10 +23,31 @@ tox
 
 # Run specific environments
 tox -e test        # Tests on Python 3.12
-tox -e coverage     # Code coverage report
-tox -e lint         # Linting only
-tox -e type         # Type checking only
-tox -e format       # Format code
+tox -e coverage    # Code coverage report
+tox -e lint        # Linting only
+tox -e type        # Type checking only
+tox -e format      # Format code
+```
+
+## Documentation
+
+Generate the CLI reference documentation using Sphinx:
+
+```shell
+# Install documentation dependencies
+pip install -e ".[docs]"
+
+# Build HTML documentation
+cd docs
+make html
+```
+
+The generated documentation will be in `docs/_build/html/`. Open `docs/_build/html/index.html` in a browser to view.
+
+To clean and rebuild:
+```shell
+cd docs
+make clean html
 ```
 
 ## Release
