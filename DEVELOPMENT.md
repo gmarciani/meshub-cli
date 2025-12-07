@@ -3,37 +3,37 @@
 ## Setup
 
 Setup development environment
-```bash
+```shell
 pyenv virtualenv 3.12 meshub-dev
 pyenv activate meshub-dev
 pip install -e .
 ```
 
 Install development dependencies
-```bash
+```shell
 pip install -e ".[dev]"
 pre-commit install
 ```
 
 ## Validate
 Run tests and linters
-```bash
+```shell
 # Run all tests and linting with tox
 tox
 
 # Run specific environments
-tox -e py312        # Tests on Python 3.12
+tox -e test        # Tests on Python 3.12
+tox -e coverage     # Code coverage report
 tox -e lint         # Linting only
 tox -e type         # Type checking only
 tox -e format       # Format code
-tox -e coverage     # Code coverage report
 ```
 
 ## Release
 
 Update version in `constants.py`
 ```
-VERSION="0.0.1"
+VERSION="0.0.2"
 ```
 
 Draft the release
