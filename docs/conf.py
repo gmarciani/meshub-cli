@@ -36,5 +36,8 @@ html_theme_options = {
     "sticky_navigation": True,
 }
 
+html_favicon = "_static/favicon.ico"
+html_logo = "_static/logo.png"
+
 # -- sphinx-click configuration ----------------------------------------------
 # This automatically documents Click commands
