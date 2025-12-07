@@ -9,7 +9,6 @@ import json
 from meshub.config.configuration import (
     load_config,
     save_config,
-    load_default_config,
     get_config_path,
 )
 
@@ -19,7 +18,6 @@ logger = logging.getLogger(__name__)
 @click.group()
 def config() -> None:
     """Manage configurations."""
-    pass
 
 
 @config.command()

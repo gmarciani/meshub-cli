@@ -11,7 +11,6 @@ from meshub.commands.common import api_key_option, require_api_key, debug_option
 @click.group()
 def firmography() -> None:
     """Firmography data commands."""
-    pass
 
 
 @firmography.command()
