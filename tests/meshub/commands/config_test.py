@@ -38,31 +38,35 @@ def test_config_set():
     """Test config set command."""
     runner = CliRunner()
 
-    with patch("meshub.commands.config.load_default_config") as mock_default:
-        with patch("meshub.commands.config.load_config") as mock_load:
-            with patch("meshub.commands.config.save_config") as mock_save:
-                mock_default.return_value = {"apikey": None}
-                mock_load.return_value = {"apikey": None}
+    with patch("meshub.commands.config.load_config") as mock_load:
+        with patch("meshub.commands.config.save_config") as mock_save:
+            mock_load.return_value = {"apikey": None}
 
-                result = runner.invoke(config, ["set", "apikey", "new-value"])
+            result = runner.invoke(config, ["set", "apikey", "new-value"])
 
-                assert result.exit_code == 0
-                output = json.loads(result.output)
-                assert output["key"] == "apikey"
-                assert output["value"] == "new-value"
-                assert output["oldValue"] is None
-                mock_save.assert_called_once()
+            assert result.exit_code == 0
+            output = json.loads(result.output)
+            assert output["key"] == "apikey"
+            assert output["value"] == "new-value"
+            assert output["oldValue"] is None
+            mock_save.assert_called_once()
 
 
 def test_config_set_unknown_key():
-    """Test config set with unknown key."""
+    """Test config set with unknown key (allowed - creates new key)."""
     runner = CliRunner()
 
-    with patch("meshub.commands.config.load_default_config") as mock_default:
-        mock_default.return_value = {"apikey": None}
-        result = runner.invoke(config, ["set", "unknown", "value"])
+    with patch("meshub.commands.config.load_config") as mock_load:
+        with patch("meshub.commands.config.save_config") as mock_save:
+            mock_load.return_value = {"apikey": None}
 
-        assert result.exit_code == 0
+            result = runner.invoke(config, ["set", "unknown", "value"])
+
+            assert result.exit_code == 0
+            output = json.loads(result.output)
+            assert output["key"] == "unknown"
+            assert output["value"] == "value"
+            mock_save.assert_called_once()
 
 
 def test_config_show():
@@ -112,3 +116,40 @@ def test_config_reset_no_file():
 
             assert result.exit_code == 0
             mock_config_path.unlink.assert_not_called()
+
+
+def test_config_unset():
+    """Test config unset command."""
+    runner = CliRunner()
+
+    with patch("meshub.commands.config.load_config") as mock_load:
+        with patch("meshub.commands.config.save_config") as mock_save:
+            mock_load.return_value = {"apikey": "old-value"}
+
+            result = runner.invoke(config, ["unset", "apikey"])
+
+            assert result.exit_code == 0
+            output = json.loads(result.output)
+            assert output["key"] == "apikey"
+            assert output["value"] is None
+            assert output["oldValue"] == "old-value"
+            mock_save.assert_called_once()
+
+
+def test_config_unset_unknown_key():
+    """Test config unset with unknown key."""
+    runner = CliRunner()
+
+    with patch("meshub.commands.config.load_config") as mock_load:
+        mock_load.return_value = {"apikey": "value"}
+        result = runner.invoke(config, ["unset", "unknown"])
+
+        assert result.exit_code == 0
+
+
+def test_config_help():
+    """Test config command help."""
+    runner = CliRunner()
+    result = runner.invoke(config, ["--help"])
+    assert result.exit_code == 0
+    assert "Manage configurations" in result.output
