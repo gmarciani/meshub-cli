@@ -4,7 +4,7 @@
 
 Setup development environment
 ```shell
-pyenv virtualenv 3.12 meshub-dev
+pyenv virtualenv 3.14.2 meshub-dev
 pyenv activate meshub-dev
 pip install -e .
 ```
