@@ -17,6 +17,7 @@ repos:
       - id: debug-statements
       - id: detect-private-key
       - id: detect-aws-credentials
+        args: ['--allow-missing-credentials']
       - id: check-symlinks
       - id: requirements-txt-fixer
       - id: end-of-file-fixer
