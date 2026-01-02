@@ -28,7 +28,7 @@ tox -e format      # Format code
 Generate the CLI reference documentation using Sphinx:
 
 ```shell
-make build_docs
+make build-docs
 ```
 
 The generated documentation will be in `docs/_build/html/`.
@@ -36,13 +36,13 @@ The generated documentation will be in `docs/_build/html/`.
 View the documentation:
 
 ```shell
-make view_docs
+make open-docs
 ```
 
 Clean the documentation:
 
 ```shell
-make clean_docs
+make clean-docs
 ```
 
 ## Release

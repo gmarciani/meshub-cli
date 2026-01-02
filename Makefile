@@ -13,14 +13,16 @@ setup:
 install:
 	pip install -e .
 
-install_docs:
+install-docs:
 	pip install -e ".[docs]"
 
-build_docs: install_docs
+build-docs: install-docs
 	$(MAKE) -C docs html
 
-clean_docs: install_docs
+clean: clean-docs
+
+clean-docs: install-docs
 	$(MAKE) -C docs clean
 
-view_docs:
+open-docs:
 	open docs/_build/html/index.html
