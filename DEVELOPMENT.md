@@ -2,21 +2,15 @@
 
 ## Setup
 
-Setup development environment
-```shell
-pyenv virtualenv 3.14.2 meshub-dev
-pyenv activate meshub-dev
-pip install -e .
-```
+Setup development environment:
 
-Install development dependencies
 ```shell
-pip install -e ".[dev]"
-pre-commit install
+make setup
 ```
 
 ## Validate
-Run tests and linters
+Run tests and linters:
+
 ```shell
 # Run all tests and linting with tox
 tox
@@ -34,31 +28,34 @@ tox -e format      # Format code
 Generate the CLI reference documentation using Sphinx:
 
 ```shell
-# Install documentation dependencies
-pip install -e ".[docs]"
-
-# Build HTML documentation
-cd docs
-make html
+make build_docs
 ```
 
-The generated documentation will be in `docs/_build/html/`. Open `docs/_build/html/index.html` in a browser to view.
+The generated documentation will be in `docs/_build/html/`.
 
-To clean and rebuild:
+View the documentation:
+
 ```shell
-cd docs
-make clean html
+make view_docs
+```
+
+Clean the documentation:
+
+```shell
+make clean_docs
 ```
 
 ## Release
 
 Update version in `constants.py`
-```
+
+```shell
 VERSION="0.0.2"
 ```
 
 Draft the release
-```
+
+```shell
 gh release create v${VERSION} \
    --title "v$VERSION" \
    --target main \
@@ -68,7 +65,8 @@ gh release create v${VERSION} \
 ```
 
 Make changes to the release notes, and publish
-```
+
+```shell
 gh release edit v${VERSION} --draft=false
 ```
 
@@ -78,7 +76,7 @@ This will automatically trigger Test PyPI publishing
 
 To manually publish to Test PyPI
 
-```bash
+```shell
 python -m build
 python -m twine upload --repository testpypi dist/*
 ```

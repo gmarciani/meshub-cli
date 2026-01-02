@@ -78,6 +78,13 @@ api_key_option = click.option(
     help="API key (overrides configured key)",
 )
 
+ca_file_option = click.option(
+    "--ca-file",
+    type=click.Path(exists=True, dir_okay=False, resolve_path=True),
+    default=None,
+    help="CA certificate bundle file for SSL verification.",
+)
+
 debug_option = click.option(
     "--debug",
     "-d",
