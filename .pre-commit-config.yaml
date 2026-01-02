@@ -22,6 +22,8 @@ repos:
       - id: requirements-txt-fixer
       - id: end-of-file-fixer
       - id: pretty-format-json
+        args: ['--autofix', '--indent=2']
+        exclude: 'package-lock\.json$'
       - id: requirements-txt-fixer
       - id: mixed-line-ending
         args: ['--fix=no']
