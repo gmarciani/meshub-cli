@@ -59,7 +59,7 @@ where = ["src"]
 include = ["meshub*"]
 
 [tool.setuptools.dynamic]
-version = {attr = "meshub.constants.__version__"}
+version = {file = "VERSION"}
 
 [tool.black]
 line-length = 88
