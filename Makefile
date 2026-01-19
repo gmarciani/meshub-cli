@@ -9,6 +9,7 @@ setup:
 	pyenv local $(VENV_NAME)
 	$$HOME/.pyenv/versions/$(VENV_NAME)/bin/python -m pip install --upgrade pip
 	pre-commit install
+	pip install -e ".[dev]"
 
 install:
 	pip install -e .
