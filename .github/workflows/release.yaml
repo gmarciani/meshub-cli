@@ -1,8 +1,14 @@
-name: Publish to Test PyPI
+name: Publish to PyPI
 
 on:
   release:
     types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag to publish (e.g., v1.0.0)'
+        required: true
+        type: string
 
 jobs:
   publish:
@@ -11,6 +17,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.tag || github.ref }}
 
       - name: Install Python
         uses: actions/setup-python@v5
@@ -26,9 +34,9 @@ jobs:
         run: |
           python -m build
 
-      - name: Publish to Test PyPI
+      - name: Publish to PyPI
         env:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
         run: |
-          python -m twine upload dist/*
+          python -m twine upload --repository pypi dist/*
